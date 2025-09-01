@@ -33,6 +33,14 @@
 				INNER JOIN membertbl m ON b.bwriter = m.memberid	
 				    ORDER BY b.bnum DESC				
 	</select>
-    
+    <!-- 모든글 갯수 가져오기-->
+    <select id="AllBoardCountDao" resultType="int">
+		SELECT COUNT(*) FROM boardtbl
+	</select>
+	
+	<!-- 선택 글 삭제-->
+    <select id="boardDeleteDao" resultType="int">
+		DELETE FROM boardtbl WHERE bnum=#{param1}
+	</select>
      
      </mapper>

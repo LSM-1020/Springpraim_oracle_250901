@@ -40,8 +40,7 @@ private SqlSession sqlSession;
 		
 		BoardDao boarddao = sqlSession.getMapper(BoardDao.class);
 		boarddao.boardWriteDao(btitle, bcontent, bwriter);
-		
-		
+
 		return "redirect:blist";
 	}
 	@RequestMapping (value="/blist")
@@ -49,7 +48,19 @@ private SqlSession sqlSession;
 		BoardDao boardDao = sqlSession.getMapper(BoardDao.class);
 		 List<BoardDto> boardDtos = boardDao.boardListDao();
 		 model.addAttribute("boardList",boardDtos);
+		 model.addAttribute("boardCount",boardDao.AllBoardCountDao());
 		return "boardlist";
+	}
+	@RequestMapping (value="/boarddelete")
+	public String boarddelete(HttpServletRequest request, Model model) {
+		String bnum = request.getParameter("bnum");
+		
+	BoardDao boardDao = sqlSession.getMapper(BoardDao.class);
+	
+		 boardDao.boardDeleteDao(bnum);
+		
+	            return "redirect:/blist";
+	     
 	}
 	
 }
