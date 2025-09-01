@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+     <mapper namespace="com.LSM.oracle.dao.BoardDao">
+     <insert id="boardWriteDao">
+      INSERT INTO boardtbl(bnum,btitle,bcontent,bwriter,bhit)
+      	VALUES(board_seq.nextval,#{param1},#{param2},#{param3},0)
+     </insert>
+     
+    <!-- board:member 1:1관계 매핑 -->
+	<resultMap type="com.LSM.oracle.dto.BoardDto" id="boardWithMember">
+		<id property="bnum" column="bnum" /> <!-- user 테이블의 기본키 셋팅 -->
+		<result property="btitle"  column="btitle" /> <!-- user 테이블의 나머지 필드 셋팅 -->
+		<result property="bcontent"  column="bcontent" /> <!-- user 테이블의 나머지 필드 셋팅 -->
+		<result property="bwriter"  column="bwriter" /> <!-- user 테이블의 나머지 필드 셋팅 -->
+		<result property="bdate"  column="bdate" /> 
+		<result property="bhit"  column="bhit" /> 
+		
+		<association property="memberDto" javaType="com.LSM.oracle.dto.MemberDto">
+			<id property="memberid" column="memberid" />
+			<result property="membernum" column="membernum" />
+			<result property="memberpw" column="memberpw" />
+			<result property="membername" column="membername" />
+			<result property="memberdate" column="memberdate" />
+		</association>
+	</resultMap>
+	
+	<!-- 모든글 가져오기 (멤버 정보 조인)-->
+	<select id="boardListDao" resultMap="boardWithMember">
+		SELECT b.bnum, b.btitle, b.bcontent, b.bwriter, m.membername, b.bhit, b.bdate
+			FROM boardtbl b
+				INNER JOIN membertbl m ON b.bwriter = m.memberid	
+				    ORDER BY b.bnum DESC				
+	</select>
+    
+     
+     </mapper>
