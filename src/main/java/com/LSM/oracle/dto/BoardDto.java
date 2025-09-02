@@ -13,6 +13,7 @@ import lombok.Setter;
 @AllArgsConstructor
 public class BoardDto {
 
+	private int rnum;//rownum값
 	private int bnum;//글번호
 	private String btitle;
 	private String bcontent;

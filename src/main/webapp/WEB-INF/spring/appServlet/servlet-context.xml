@@ -31,7 +31,7 @@
 	
 	<beans:bean name="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
 		<beans:property name="dataSource" ref="dataSource" />
-		<beans:property name="mapperLocations" value="classpath:com/LSM/oracle/mapper/*.xml"  />
+		<beans:property name="mapperLocations" value="classpath:com/LSM/project/mapper/*.xml"  />
 	</beans:bean>
 	
 	<beans:bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate">
@@ -39,6 +39,6 @@
 	</beans:bean>
 	
 	
-	<context:component-scan base-package="com.LSM.oracle" />
+	<context:component-scan base-package="com.LSM.project" />
 	
 </beans:beans>

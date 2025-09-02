@@ -22,11 +22,14 @@
 		<c:forEach items="${boardList}" var="board" varStatus="status" >
 		<tr>
 			<td>${boardCount - status.index}</td>
-			<td>${board.btitle}</td>
+			<td>
+			<a href="contentview?bnum=${board.bnum}">${board.btitle}</a></td>
 			<td>${board.bwriter}</td>
 			<td>${board.memberDto.membername}</td>
 			<td>${board.bhit}</td>
-			<td>${board.bdate}</td>
+			<td>				
+				<fmt:formatDate value="${board.bdate }" pattern="yyyy-MM-dd HH:mm" />		
+			</td>
 			<td>
 				<input type="button" value="삭제" onclick="javascript:window.location.href='boarddelete?bnum=${board.bnum}'">
 										
